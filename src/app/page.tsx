@@ -33,7 +33,7 @@ export default function MapPage() {
   }, [zones]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <main className="flex flex-col min-h-screen">
       <PageHeader 
         title="Live Flow Intelligence" 
         subtitle="Sector Alpha" 
@@ -123,6 +123,6 @@ export default function MapPage() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

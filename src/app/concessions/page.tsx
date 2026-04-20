@@ -26,7 +26,7 @@ export default function ConcessionsPage() {
 
   if (activeStand) {
     return (
-      <div className="flex flex-col min-h-screen">
+      <main className="flex flex-col min-h-screen">
         <PageHeader title="Virtual Queue" subtitle="Active Order" />
         
         <div className="px-4 space-y-6 flex-1 flex flex-col items-center justify-center pb-20">
@@ -57,18 +57,19 @@ export default function ConcessionsPage() {
             
             <button 
               onClick={() => setActiveQueueId(null)}
-              className="w-full py-4 rounded-xl border border-destructive/50 bg-destructive/10 text-destructive font-bold uppercase tracking-widest hover:bg-destructive/20 transition-all flex items-center justify-center gap-2"
+              aria-label="Cancel Virtual Order"
+              className="w-full py-4 rounded-xl border border-destructive/50 bg-destructive/10 text-destructive font-bold uppercase tracking-widest hover:bg-destructive/20 transition-all flex items-center justify-center gap-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <XCircle className="w-5 h-5" /> Cancel Order
             </button>
           </div>
         </div>
-      </div>
+      </main>
     );
   }
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <main className="flex flex-col min-h-screen">
       <PageHeader 
         title="Smart Queues" 
         subtitle="Predictive Wait Times" 
@@ -87,7 +88,7 @@ export default function ConcessionsPage() {
         
         {/* Recommendation Panel */}
         {recommendedStand && (
-          <div className="glass rounded-2xl p-5 border border-primary/40 shadow-[0_0_20px_rgba(6,182,212,0.1)] relative overflow-hidden">
+          <div aria-live="polite" className="glass rounded-2xl p-5 border border-primary/40 shadow-[0_0_20px_rgba(6,182,212,0.1)] relative overflow-hidden">
             <div className="absolute top-0 right-0 p-4 opacity-10 pointer-events-none">
               <Zap className="w-24 h-24 text-primary" />
             </div>
@@ -119,7 +120,8 @@ export default function ConcessionsPage() {
 
             <button 
               onClick={() => setActiveQueueId(recommendedStand.id)}
-              className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-bold uppercase tracking-widest hover:bg-primary/90 transition-all active:scale-[0.98]"
+              aria-label={`Join Virtual Queue for Recommended Stand ${recommendedStand.name}`}
+              className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-bold uppercase tracking-widest hover:bg-primary/90 transition-all active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               Join Virtual Queue
             </button>
@@ -161,7 +163,8 @@ export default function ConcessionsPage() {
                 <div className="mt-4 pt-3 border-t border-current/10">
                   <button 
                     onClick={() => setActiveQueueId(stand.id)}
-                    className="w-full py-2 rounded-lg bg-foreground/10 text-xs font-bold uppercase tracking-widest hover:bg-foreground/20 transition-all"
+                    aria-label={`Join Queue for ${stand.name}`}
+                    className="w-full py-2 rounded-lg bg-foreground/10 text-xs font-bold uppercase tracking-widest hover:bg-foreground/20 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
                     Join Queue
                   </button>
@@ -171,6 +174,6 @@ export default function ConcessionsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

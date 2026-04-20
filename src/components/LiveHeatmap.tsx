@@ -27,12 +27,22 @@ export function LiveHeatmap({ zones, selectedZone, onSelectZone }: LiveHeatmapPr
   const renderZone = (id: ZoneId, d: string, label: string, x: number, y: number) => {
     const zoneData = zones[id];
     const isSelected = selectedZone === id;
+    const congestionLevel = zoneData.density <= 40 ? 'Low' : zoneData.density <= 75 ? 'Moderate' : 'High';
     
     return (
       <g 
         key={id}
         onClick={() => onSelectZone(id)}
-        className="cursor-pointer transition-all duration-300"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onSelectZone(id);
+          }
+        }}
+        tabIndex={0}
+        role="button"
+        aria-label={`Map Zone: ${zoneData.name}, ${zoneData.density}% density, ${congestionLevel} Congestion`}
+        className="cursor-pointer transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
       >
         <path
           d={d}
@@ -69,7 +79,10 @@ export function LiveHeatmap({ zones, selectedZone, onSelectZone }: LiveHeatmapPr
         viewBox="0 0 400 400" 
         className="w-full h-full drop-shadow-2xl z-10"
         preserveAspectRatio="xMidYMid meet"
+        role="img"
+        aria-label="Live Stadium Crowd Density Heatmap"
       >
+        <title>Live Stadium Crowd Density Heatmap</title>
         {/* Background Base */}
         <rect x="10" y="10" width="380" height="380" rx="40" className="fill-black/40 stroke-border stroke-[1px]" />
         

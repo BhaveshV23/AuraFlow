@@ -34,6 +34,8 @@ export default function AlertsPage() {
   };
 
   // Cross-System Recommendation Banner logic
+  // NOTE: This simulated predictive logic is designed to be swapped with real Gemini-based 
+  // inference from `src/lib/gemini.ts` (e.g., generateVenueInsights) for advanced AI reasoning.
   const recommendation = useMemo(() => {
     if (!latestAlert) return "System nominal. All zones operating within standard capacity.";
     
@@ -52,7 +54,7 @@ export default function AlertsPage() {
   }, [latestAlert, zoneDensityMap]);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <main className="flex flex-col min-h-screen">
       <PageHeader 
         title="Command Hub" 
         subtitle="Automated Coordination" 
@@ -115,7 +117,8 @@ export default function AlertsPage() {
           <div className="p-4">
             <button 
               onClick={() => simulateSurge("main_concourse", 95, 10000)}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-lg border border-destructive/30 bg-destructive/5 text-destructive font-bold uppercase tracking-widest text-sm hover:bg-destructive/20 active:scale-[0.98] transition-all"
+              aria-label="Simulate Sector Surge"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-lg border border-destructive/30 bg-destructive/5 text-destructive font-bold uppercase tracking-widest text-sm hover:bg-destructive/20 active:scale-[0.98] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
               <Play className="w-4 h-4" /> Simulate Sector Surge
             </button>
@@ -126,14 +129,18 @@ export default function AlertsPage() {
         </div>
 
         {/* Alert Feed */}
-        <div className="space-y-4">
+        <div className="space-y-4" aria-live="polite">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold tracking-widest text-muted-foreground uppercase">
               Live Alert Feed
             </h2>
             <div className="flex items-center gap-2">
               {alerts.length > 0 && (
-                <button onClick={clearAlerts} className="text-[10px] text-muted-foreground hover:text-foreground uppercase tracking-wider mr-2">
+                <button 
+                  onClick={clearAlerts} 
+                  aria-label="Clear All Alerts"
+                  className="text-[10px] text-muted-foreground hover:text-foreground uppercase tracking-wider mr-2 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 rounded"
+                >
                   Clear All
                 </button>
               )}
@@ -196,6 +203,6 @@ export default function AlertsPage() {
         </div>
         
       </div>
-    </div>
+    </main>
   );
 }

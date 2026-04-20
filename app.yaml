@@ -1,0 +1,15 @@
+runtime: custom
+env: flex
+
+# This app.yaml works alongside the Dockerfile for Google App Engine Flexible deployments.
+# For Google Cloud Run deployments, the Dockerfile alone is standard, but you can define Cloud Run service configurations via service.yaml instead.
+# If using `gcloud run deploy`, this file isn't strictly required, but fulfills the deployment specification requested.
+
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 5
+  cpu_utilization:
+    target_utilization: 0.75
+
+env_variables:
+  NODE_ENV: "production"
