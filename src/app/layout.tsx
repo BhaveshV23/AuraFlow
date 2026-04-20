@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 import { AppShell } from "@/components/layout/AppShell";
 
@@ -39,6 +40,7 @@ export default function RootLayout({
         <AppShell>
           {children}
         </AppShell>
+        <GoogleAnalytics gaId="G-XYZ1234567" />
       </body>
     </html>
   );
